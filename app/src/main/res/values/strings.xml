@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TestMvvm</string>
+
+    <string name="str_hint_translate_input">번역할 문장을 입력해주세요</string>
+    <string name="str_retry">다시 시도해주세요</string>
+    <string name="str_confirm">확인</string>
+</resources>

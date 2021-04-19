@@ -4,7 +4,7 @@ class NetworkConstants {
 
     companion object {
         const val BASE_URL = "https://dapi.kakao.com"
-        private const val REST_API_KEY = "393eb89c4e03ed1062a9b30c11ee5e74"
+        private const val REST_API_KEY = ""
         const val LAGN_KR = "kr"
         const val LAGN_EN = "en"
 

@@ -1,17 +1,21 @@
 package com.jjg.testmvvm.viewModel
 
 import android.util.Log
+import android.view.View
+import androidx.databinding.Bindable
+import androidx.databinding.InverseBindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.jjg.testmvvm.model.network.NetworkRequest
-import com.jjg.testmvvm.model.network.core.INetworkListener
-import com.jjg.testmvvm.model.network.vo.resp.Document
+import com.jjg.testmvvm.model.network.core.STATUS
+import com.jjg.testmvvm.model.network.set.NetworkConstants
+import com.jjg.testmvvm.model.network.set.NetworkStatus
 import com.jjg.testmvvm.model.network.vo.resp.VoSearch
-import com.jjg.testmvvm.viewModel.common.VmBase
+import com.jjg.testmvvm.viewModel.common.BaseVm
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class VmSearch : VmBase() {
+class SearchVm : BaseVm() {
 
     val voSearch: MutableLiveData<VoSearch> by lazy {
         MutableLiveData<VoSearch>()
@@ -21,8 +25,8 @@ class VmSearch : VmBase() {
         MutableLiveData<String>()
     }
 
-    fun search(networkListener: INetworkListener) {
-        networkListener.onPrepareListener()
+    private fun search(url: String) {
+        statusNetwork.value = NetworkStatus(url, STATUS.PREPARED)
 
         NetworkRequest.getInstance()
             .requestSearch(strSearch.value!!, object : Callback<VoSearch> {
@@ -30,7 +34,7 @@ class VmSearch : VmBase() {
                     Log.d("TAG", "========= fail ==============")
                     Log.d("TAG", "${t.message}")
                     Log.d("TAG", "=======================")
-                    searchFail(networkListener)
+                    searchFail(url)
                 }
 
                 override fun onResponse(
@@ -38,29 +42,45 @@ class VmSearch : VmBase() {
                     response: Response<VoSearch>
                 ) {
                     Log.d("TAG", "===========success============")
-                    Log.d("TAG", "${response.body()!!.meta}")
-                    Log.d("TAG", "=======================")
-
                     if (response.isSuccessful) {
                         voSearch.postValue(response.body())
-                        networkListener.onSuccessListener()
+                        statusNetwork.value = NetworkStatus(url, STATUS.SUCCESS)
                     } else {
-                        searchFail(networkListener)
+                        searchFail(url)
                     }
                 }
             })
     }
 
-    private fun searchFail(networkListener: INetworkListener) {
+    private fun searchFail(url: String) {
         voSearch.value!!.documents.clear()
-        networkListener.onFailListener()
+        statusNetwork.value = NetworkStatus(url, STATUS.FAIL)
     }
 
-    fun isEmpty(): Boolean {
+    private fun isEmpty(): Boolean {
         return strSearch.value!!.isEmpty()
     }
 
-    fun setStrSearch(str: String) {
+    private fun setStrSearch(str: String) {
         strSearch.value = str
+    }
+
+    fun clickSearch(str: String) {
+        var url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
+        statusNetwork.value = NetworkStatus(url, STATUS.NONE)
+        setStrSearch(str)
+        if (isEmpty()) {
+            return
+        }
+        search(url)
+    }
+
+    fun isEmptyDocuments(): Boolean {
+        return if (voSearch.value == null) {
+            true
+        } else {
+            var item = voSearch.value!!.documents
+            item == null || item.size == 0
+        }
     }
 }

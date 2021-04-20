@@ -1,6 +1,6 @@
 package com.jjg.testmvvm.model.network.core
 
-import com.jjg.testmvvm.model.network.set.IApiSerivce
+import com.jjg.testmvvm.model.network.set.IApiService
 import com.jjg.testmvvm.model.network.set.NetworkConstants.Companion.BASE_URL
 import com.jjg.testmvvm.model.network.set.NetworkConstants.Companion.H_KEY_AUTHORIZATION
 import com.jjg.testmvvm.model.network.set.NetworkConstants.Companion.H_VALUE_KAKAO_AK
@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitBuilder {
-    val apiService: IApiSerivce
+    val apiService: IApiService
 
     init {
         val headerInterceptor = Interceptor {
@@ -30,6 +30,6 @@ class RetrofitBuilder {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(IApiSerivce::class.java)
+            .create(IApiService::class.java)
     }
 }

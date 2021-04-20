@@ -2,18 +2,16 @@ package com.jjg.testmvvm.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.jjg.testmvvm.R
 import com.jjg.testmvvm.databinding.ItemSearchBinding
 import com.jjg.testmvvm.ui.adapter.viewholder.SearchViewHolder
-import com.jjg.testmvvm.viewModel.VmSearch
+import com.jjg.testmvvm.viewModel.SearchVm
 
 
 class SearchAdapter(
     private var context: Context,
-    private var viewModel: VmSearch?
+    private var viewModel: SearchVm?
 ) : RecyclerView.Adapter<SearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
@@ -31,7 +29,7 @@ class SearchAdapter(
         holder.bind(viewModel!!.voSearch.value!!.documents[position])
     }
 
-    fun setViewModel(viewModel: VmSearch) {
+    fun setViewModel(viewModel: SearchVm) {
         this.viewModel = viewModel
     }
 }

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.jjg.testmvvm.viewModel.VmTranslate" />
+            type="com.jjg.testmvvm.viewModel.TranslateVm" />
     </data>
 
     <LinearLayout
@@ -24,6 +24,7 @@
 
         <Button
             android:id="@+id/btn_confirm"
+            android:onClick="@{()->viewModel.clickTranslate(etTranslate.getText().toString())}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_confirm" />

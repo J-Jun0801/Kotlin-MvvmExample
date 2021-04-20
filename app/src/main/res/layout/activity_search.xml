@@ -2,17 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
-            type="com.jjg.testmvvm.viewModel.VmSearch" />
+            type="com.jjg.testmvvm.viewModel.SearchVm" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -22,20 +25,35 @@
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="0dp"
-                android:text="@{viewModel.strSearch}"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@{viewModel.strSearch}" />
 
             <Button
                 android:id="@+id/btnSearch"
-                android:text="@string/str_confirm"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:onClick="@{()->viewModel.clickSearch(etSearch.getText().toString())}"
+                android:text="@string/str_confirm" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_search"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@id/ll_search">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{viewModel.emptyDocuments ? View. GONE: View.VISIBLE}" />
+
+            <TextView
+                android:id="@+id/tv_empty_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/str_empty_result"
+                android:visibility="@{viewModel.emptyDocuments ? View.VISIBLE : View.GONE}" />
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

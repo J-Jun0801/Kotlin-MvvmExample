@@ -1,15 +1,12 @@
 package com.jjg.testmvvm.viewModel
 
-import android.util.Log
-import android.view.View
-import androidx.databinding.Bindable
-import androidx.databinding.InverseBindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.jjg.testmvvm.model.network.NetworkRequest
 import com.jjg.testmvvm.model.network.core.STATUS
 import com.jjg.testmvvm.model.network.set.NetworkConstants
 import com.jjg.testmvvm.model.network.set.NetworkStatus
 import com.jjg.testmvvm.model.network.vo.resp.VoSearch
+import com.jjg.testmvvm.model.util.log.Log
 import com.jjg.testmvvm.viewModel.common.BaseVm
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,9 +28,9 @@ class SearchVm : BaseVm() {
         NetworkRequest.getInstance()
             .requestSearch(strSearch.value!!, object : Callback<VoSearch> {
                 override fun onFailure(call: Call<VoSearch>, t: Throwable) {
-                    Log.d("TAG", "========= fail ==============")
-                    Log.d("TAG", "${t.message}")
-                    Log.d("TAG", "=======================")
+                    Log.d( "========= fail ==============")
+                    Log.d( "${t.message}")
+                    Log.d( "=======================")
                     searchFail(url)
                 }
 
@@ -41,7 +38,7 @@ class SearchVm : BaseVm() {
                     call: Call<VoSearch>,
                     response: Response<VoSearch>
                 ) {
-                    Log.d("TAG", "===========success============")
+                    Log.d( "===========success============")
                     if (response.isSuccessful) {
                         voSearch.postValue(response.body())
                         statusNetwork.value = NetworkStatus(url, STATUS.SUCCESS)

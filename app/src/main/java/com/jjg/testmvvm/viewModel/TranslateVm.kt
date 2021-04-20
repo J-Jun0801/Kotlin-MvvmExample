@@ -1,12 +1,12 @@
 package com.jjg.testmvvm.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.jjg.testmvvm.model.network.NetworkRequest
 import com.jjg.testmvvm.model.network.core.STATUS
 import com.jjg.testmvvm.model.network.set.NetworkConstants
 import com.jjg.testmvvm.model.network.set.NetworkStatus
 import com.jjg.testmvvm.model.network.vo.resp.VoTranslate
+import com.jjg.testmvvm.model.util.log.Log
 import com.jjg.testmvvm.viewModel.common.BaseVm
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,9 +27,9 @@ class TranslateVm : BaseVm() {
         NetworkRequest.getInstance()
             .requestTranslate(strTranslate.value!!, object : Callback<VoTranslate> {
                 override fun onFailure(call: Call<VoTranslate>, t: Throwable) {
-                    Log.d("TAG", "========= fail ==============")
-                    Log.d("TAG", "${t.message}")
-                    Log.d("TAG", "=======================")
+                    Log.d( "========= fail ==============")
+                    Log.d( "${t.message}")
+                    Log.d( "=======================")
                     clearVoTranslate(url)
                 }
 
@@ -37,9 +37,9 @@ class TranslateVm : BaseVm() {
                     call: Call<VoTranslate>,
                     response: Response<VoTranslate>
                 ) {
-                    Log.d("TAG", "===========success============")
-                    Log.d("TAG", "${response.body()!!.translatedText}")
-                    Log.d("TAG", "=======================")
+                    Log.d( "===========success============")
+                    Log.d( "${response.body()!!.translatedText}")
+                    Log.d( "=======================")
                     if (response.isSuccessful) {
                         voTranslate.postValue(response.body())
                         statusNetwork.value = NetworkStatus( url, STATUS.SUCCESS)

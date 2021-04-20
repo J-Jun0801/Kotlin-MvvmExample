@@ -1,7 +1,6 @@
-package com.jjg.testmvvm.ui.common
+package com.jjg.testmvvm.ui.common.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -10,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.jjg.testmvvm.model.network.core.INetworkListener
 import com.jjg.testmvvm.model.network.core.STATUS
 import com.jjg.testmvvm.model.network.set.NetworkStatus
+import com.jjg.testmvvm.model.util.log.Log
 import com.jjg.testmvvm.viewModel.common.BaseVm
 
 /**
@@ -49,22 +49,23 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseVm>(
             val url = networkStatus.url
             when (status) {
                 STATUS.PREPARED -> {
-                    Log.d(TAG, "Observer OnPrepareListener")
+                    Log.d( "Observer OnPrepareListener")
+                    showDialog()
                     networkListener?.onPrepareListener()
                 }
                 STATUS.FAIL -> {
-                    Log.d(TAG, "Observer OnFailListener")
+                    Log.d( "Observer OnFailListener")
+                    closeDialog()
                     networkListener?.onFailListener()
                 }
                 STATUS.SUCCESS -> {
-                    Log.d(TAG, "Observer OnSuccessListener")
+                    Log.d( "Observer OnSuccessListener")
+                    closeDialog()
                     networkListener?.onSuccessListener(url)
                 }
             }
         }
-
         viewModel.statusNetwork.observe(this, statusNetworkObserver)
-
     }
 
     abstract fun bindViewModel()

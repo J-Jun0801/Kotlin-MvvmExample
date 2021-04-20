@@ -2,13 +2,12 @@ package com.jjg.testmvvm.ui.activity
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jjg.testmvvm.BR
 import com.jjg.testmvvm.R
 import com.jjg.testmvvm.databinding.ActivitySearchBinding
 import com.jjg.testmvvm.model.network.core.INetworkListener
 import com.jjg.testmvvm.model.network.set.NetworkConstants
 import com.jjg.testmvvm.ui.adapter.SearchAdapter
-import com.jjg.testmvvm.ui.common.BaseMvvmActivity
+import com.jjg.testmvvm.ui.common.activity.BaseMvvmActivity
 import com.jjg.testmvvm.viewModel.SearchVm
 
 

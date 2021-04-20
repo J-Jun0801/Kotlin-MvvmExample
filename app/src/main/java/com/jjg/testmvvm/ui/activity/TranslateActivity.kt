@@ -3,7 +3,7 @@ package com.jjg.testmvvm.ui.activity
 import android.os.Bundle
 import com.jjg.testmvvm.R
 import com.jjg.testmvvm.databinding.ActivityTranslateBinding
-import com.jjg.testmvvm.ui.common.BaseMvvmActivity
+import com.jjg.testmvvm.ui.common.activity.BaseMvvmActivity
 import com.jjg.testmvvm.viewModel.TranslateVm
 
 class TranslateActivity : BaseMvvmActivity<ActivityTranslateBinding, TranslateVm>(

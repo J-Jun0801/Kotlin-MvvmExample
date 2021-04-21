@@ -27,11 +27,8 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
 
     private fun initView() {
         binding.rvSearch.adapter = SearchAdapter(this, null)
-        binding.rvSearch.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        binding.rvSearch.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun setListener() {

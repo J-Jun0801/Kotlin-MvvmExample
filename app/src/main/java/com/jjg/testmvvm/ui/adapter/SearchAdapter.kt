@@ -39,12 +39,17 @@ class SearchAdapter(    private var context: Context,    private var viewModel: 
 
     companion object{
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Document>() {
+            /**
+             * 고유 값을 비교하는게 좋다.
+             */
             override fun areItemsTheSame(oldItem: Document, newItem: Document): Boolean {
-                TODO("Not yet implemented")
+                return oldItem == newItem;
             }
-
+            /**
+             * 아이템을 서로 비교하는게 좋다.
+             */
             override fun areContentsTheSame(oldItem: Document, newItem: Document): Boolean {
-                TODO("Not yet implemented")
+                return oldItem == newItem;
             }
 
         }

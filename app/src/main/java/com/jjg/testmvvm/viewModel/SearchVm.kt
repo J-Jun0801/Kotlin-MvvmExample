@@ -1,6 +1,7 @@
 package com.jjg.testmvvm.viewModel
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -26,6 +27,7 @@ class SearchVm : BaseVm() {
     val strSearch: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
+    var list: LiveData<PagedList<Document>>
 
     init {
         val pageListConfig = PagedList.Config.Builder()
@@ -37,9 +39,8 @@ class SearchVm : BaseVm() {
         val dataSourceFactory = DataSourceFactory()
         val dataSource = dataSourceFactory.create()
 
-        var list = LivePagedListBuilder<Int,Document>(dataSourceFactory, pageListConfig.build()).build()
-
-
+        list =
+            LivePagedListBuilder<Int, Document>(dataSourceFactory, pageListConfig.build()).build()
     }
 
     private fun search(url: String) {

@@ -12,10 +12,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- *
- * @author
- */
 class TranslateVm : BaseVm() {
     val voTranslate: MutableLiveData<VoTranslate> by lazy {
         MutableLiveData<VoTranslate>()
@@ -25,13 +21,8 @@ class TranslateVm : BaseVm() {
         MutableLiveData<String>()
     }
 
-    /**
-     *
-     * @param url
-     * @return
-     */
-    private fun translate(url: String) {
 
+    private fun translate(url: String) {
         statusNetwork.value = NetworkStatus( url, STATUS.PREPARED)
         NetworkRequest.getInstance()
             .requestTranslate(strTranslate.value!!, object : Callback<VoTranslate> {

@@ -22,11 +22,11 @@ class SearchAdapter(
     override fun getItemCount(): Int {
         if (viewModel == null)
             return 0
-        return viewModel!!.voSearch.value!!.documents.size
+        return viewModel!!.voSearch.value!!.size
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.bind(viewModel!!.voSearch.value!!.documents[position])
+        holder.bind(viewModel!!.voSearch.value!![position])
     }
 
     fun setViewModel(viewModel: SearchVm) {

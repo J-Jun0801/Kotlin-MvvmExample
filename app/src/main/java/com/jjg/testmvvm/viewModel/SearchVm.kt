@@ -1,10 +1,15 @@
 package com.jjg.testmvvm.viewModel
 
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.jjg.testmvvm.model.dataSourceFactory.DataSourceFactory
 import com.jjg.testmvvm.model.network.NetworkRequest
 import com.jjg.testmvvm.model.network.core.STATUS
 import com.jjg.testmvvm.model.network.set.NetworkConstants
 import com.jjg.testmvvm.model.network.set.NetworkStatus
+import com.jjg.testmvvm.model.network.vo.resp.Document
 import com.jjg.testmvvm.model.network.vo.resp.VoSearch
 import com.jjg.testmvvm.model.util.log.Log
 import com.jjg.testmvvm.viewModel.common.BaseVm
@@ -12,14 +17,29 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchVm : BaseVm() {
 
-    val voSearch: MutableLiveData<VoSearch> by lazy {
-        MutableLiveData<VoSearch>()
+class SearchVm : BaseVm() {
+    val voSearch: MutableLiveData<ArrayList<Document>> by lazy {
+        MutableLiveData<ArrayList<Document>>()
     }
 
     val strSearch: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
+    }
+
+    init {
+        val pageListConfig = PagedList.Config.Builder()
+
+        pageListConfig
+            .setPageSize(PAGE_SIZE)
+            .setEnablePlaceholders(false)
+
+        val dataSourceFactory = DataSourceFactory()
+        val dataSource = dataSourceFactory.create()
+
+        var list = LivePagedListBuilder<Int,Document>(dataSourceFactory, pageListConfig.build()).build()
+
+
     }
 
     private fun search(url: String) {
@@ -28,9 +48,9 @@ class SearchVm : BaseVm() {
         NetworkRequest.getInstance()
             .requestSearch(strSearch.value!!, object : Callback<VoSearch> {
                 override fun onFailure(call: Call<VoSearch>, t: Throwable) {
-                    Log.d( "========= fail ==============")
-                    Log.d( "${t.message}")
-                    Log.d( "=======================")
+                    Log.d("========= fail ==============")
+                    Log.d("${t.message}")
+                    Log.d("=======================")
                     searchFail(url)
                 }
 
@@ -38,9 +58,9 @@ class SearchVm : BaseVm() {
                     call: Call<VoSearch>,
                     response: Response<VoSearch>
                 ) {
-                    Log.d( "===========success============")
+                    Log.d("===========success============")
                     if (response.isSuccessful) {
-                        voSearch.postValue(response.body())
+                        voSearch.postValue(response.body()!!.documents)
                         statusNetwork.value = NetworkStatus(url, STATUS.SUCCESS)
                     } else {
                         searchFail(url)
@@ -50,7 +70,7 @@ class SearchVm : BaseVm() {
     }
 
     private fun searchFail(url: String) {
-        voSearch.value!!.documents.clear()
+        voSearch.value!!.clear()
         statusNetwork.value = NetworkStatus(url, STATUS.FAIL)
     }
 
@@ -76,7 +96,7 @@ class SearchVm : BaseVm() {
         return if (voSearch.value == null) {
             true
         } else {
-            var item = voSearch.value!!.documents
+            var item = voSearch.value!!
             item == null || item.size == 0
         }
     }

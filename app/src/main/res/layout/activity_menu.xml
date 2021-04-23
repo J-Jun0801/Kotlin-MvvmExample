@@ -9,11 +9,23 @@
             type="com.jjg.testmvvm.viewModel.MenuVm" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="20dp"
         android:orientation="vertical">
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_translate"
+            android:onClick="@{()->viewModel.clickTranslate()}"/>
 
-    </RelativeLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_search"
+            android:onClick="@{()->viewModel.clickSearch()}"/>
+
+    </LinearLayout>
 </layout>

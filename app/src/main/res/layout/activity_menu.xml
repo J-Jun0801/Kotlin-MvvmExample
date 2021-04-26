@@ -26,6 +26,10 @@
             android:layout_height="wrap_content"
             android:text="@string/str_search"
             android:onClick="@{()->viewModel.clickSearch()}"/>
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_paging"
+            android:onClick="@{()->viewModel.clickPaging()}"/>
     </LinearLayout>
 </layout>

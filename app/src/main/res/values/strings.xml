@@ -6,5 +6,6 @@
     <string name="str_confirm">확인</string>
     <string name="str_translate">Translate</string>
     <string name="str_search">Search</string>
+    <string name="str_paging">Paging</string>
     <string name="str_empty_result">결과가 없습니다</string>
 </resources>

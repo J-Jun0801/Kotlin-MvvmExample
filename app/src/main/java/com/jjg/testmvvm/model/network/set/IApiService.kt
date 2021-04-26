@@ -2,6 +2,7 @@ package com.jjg.testmvvm.model.network.set
 
 import com.jjg.testmvvm.model.network.set.NetworkConstants.Companion.URL_SEARCH
 import com.jjg.testmvvm.model.network.set.NetworkConstants.Companion.URL_TRANSLATE
+import com.jjg.testmvvm.model.network.vo.resp.UserResponse
 import com.jjg.testmvvm.model.network.vo.resp.VoSearch
 import com.jjg.testmvvm.model.network.vo.resp.VoTranslate
 import retrofit2.Call
@@ -21,4 +22,13 @@ interface IApiService {
     fun search(
         @Query("query") query: String
     ): Call<VoSearch>
+
+    @GET("users")
+    fun getUsers(@Query("page") page: Int): Call<UserResponse>
+
+//    @GET(URL_SEARCH)
+//    fun search(
+//        @Query("query") query: String,
+//        @Query("page") page: String
+//    ): Call<VoSearch>
 }

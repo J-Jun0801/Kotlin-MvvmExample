@@ -1,11 +1,6 @@
 package com.jjg.testmvvm.viewModel
 
-import android.nfc.tech.MifareUltralight.PAGE_SIZE
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
-import com.jjg.testmvvm.model.dataSourceFactory.DataSourceFactory
 import com.jjg.testmvvm.model.network.NetworkRequest
 import com.jjg.testmvvm.model.network.core.STATUS
 import com.jjg.testmvvm.model.network.set.NetworkConstants
@@ -27,21 +22,23 @@ class SearchVm : BaseVm() {
     val strSearch: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
-    var list: LiveData<PagedList<Document>>
+   // var list: LiveData<PagedList<Document>>
 
-    init {
-        val pageListConfig = PagedList.Config.Builder()
-
-        pageListConfig
-            .setPageSize(PAGE_SIZE)
-            .setEnablePlaceholders(false)
-
-        val dataSourceFactory = DataSourceFactory()
-        val dataSource = dataSourceFactory.create()
-
-        list =
-            LivePagedListBuilder<Int, Document>(dataSourceFactory, pageListConfig.build()).build()
-    }
+//    init {
+//
+//        val pageListConfig = PagedList.Config.Builder()
+//            .setPageSize(PAGE_SIZE)
+//            .setEnablePlaceholders(false)
+//            .build()
+//
+//        val dataSourceFactory = DataSourceFactory()
+//        val dataSource = dataSourceFactory.create()
+//
+//        list =
+//            LivePagedListBuilder<Int, Document>(dataSourceFactory, pageListConfig).setBoundaryCallback(object :PagedList.BoundaryCallback(){
+//
+//            } ).build()
+//    }
 
     private fun search(url: String) {
         statusNetwork.value = NetworkStatus(url, STATUS.PREPARED)

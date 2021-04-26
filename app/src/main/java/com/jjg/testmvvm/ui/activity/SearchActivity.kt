@@ -14,6 +14,7 @@ import com.jjg.testmvvm.viewModel.SearchVm
 class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
     R.layout.activity_search, SearchVm::class.java
 ) {
+    private lateinit var adapter: SearchAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,11 +23,18 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
     }
 
     override fun bindViewModel() {
+//        val listObserver = Observer<PagedList<Document>> {
+//            if (adapter == null)
+//                return@Observer
+//            adapter.submitList(it)
+//        }
+//        viewModel.list.observe(this, listObserver)
         binding.viewModel = viewModel
     }
 
     private fun initView() {
-        binding.rvSearch.adapter = SearchAdapter(this, null)
+        adapter = SearchAdapter(null)
+        binding.rvSearch.adapter = adapter
         binding.rvSearch.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }

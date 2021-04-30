@@ -10,6 +10,9 @@ import com.jjg.testmvvm.ui.common.activity.BaseMvvmActivity
 import com.jjg.testmvvm.viewModel.PagingVm
 import kotlinx.android.synthetic.main.activity_paging.*
 
+/**
+ * https://gamjatwigim.tistory.com/101?category=716500
+ */
 class PagingActivity : BaseMvvmActivity<ActivityPagingBinding,PagingVm>(R.layout.activity_paging,PagingVm::class.java)
 {
     override fun onCreate(savedInstanceState: Bundle?) {

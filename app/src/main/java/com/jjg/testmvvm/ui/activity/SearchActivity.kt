@@ -1,11 +1,14 @@
 package com.jjg.testmvvm.ui.activity
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jjg.testmvvm.R
 import com.jjg.testmvvm.databinding.ActivitySearchBinding
 import com.jjg.testmvvm.model.network.core.INetworkListener
 import com.jjg.testmvvm.model.network.set.NetworkConstants
+import com.jjg.testmvvm.model.network.vo.resp.Document
 import com.jjg.testmvvm.ui.adapter.SearchAdapter
 import com.jjg.testmvvm.ui.common.activity.BaseMvvmActivity
 import com.jjg.testmvvm.viewModel.SearchVm
@@ -15,7 +18,6 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
     R.layout.activity_search, SearchVm::class.java
 ) {
     private lateinit var adapter: SearchAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setListener()
@@ -29,6 +31,10 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
 //            adapter.submitList(it)
 //        }
 //        viewModel.list.observe(this, listObserver)
+
+        viewModel.repos.observe(this, Observer<PagedList<Document>> {
+            adapter.submitList(it)
+        })
         binding.viewModel = viewModel
     }
 
@@ -51,7 +57,7 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
             override fun onSuccessListener(url: String) {
                 if (url.contains(NetworkConstants.URL_SEARCH)) {
                     binding.invalidateAll()
-                    (binding.rvSearch.adapter!! as SearchAdapter).setViewModel(binding.viewModel!!)
+               //     (binding.rvSearch.adapter!! as SearchAdapter).setViewModel(binding.viewModel!!)
                     binding.rvSearch.adapter!!.notifyDataSetChanged()
                 }
             }

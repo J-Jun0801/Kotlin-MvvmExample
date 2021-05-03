@@ -15,7 +15,5 @@ class NetworkConstants {
         const val URL_TRANSLATE = "/v2/translation/translate"
         const val URL_SEARCH= "/v2/search/web"
 
-        const val PAGE_SIZE = 6
-        const val FIRST_PAGE = 1
     }
 }

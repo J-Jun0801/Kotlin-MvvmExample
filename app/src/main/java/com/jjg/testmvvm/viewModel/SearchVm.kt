@@ -1,20 +1,20 @@
 package com.jjg.testmvvm.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.jjg.testmvvm.model.network.NetworkRequest
+import androidx.lifecycle.Transformations
+import androidx.paging.PagedList
 import com.jjg.testmvvm.model.network.core.STATUS
-import com.jjg.testmvvm.model.network.set.NetworkConstants
 import com.jjg.testmvvm.model.network.set.NetworkStatus
 import com.jjg.testmvvm.model.network.vo.resp.Document
-import com.jjg.testmvvm.model.network.vo.resp.VoSearch
-import com.jjg.testmvvm.model.util.log.Log
+import com.jjg.testmvvm.model.repository.NetworkRepository
 import com.jjg.testmvvm.viewModel.common.BaseVm
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.jjg.testmvvm.viewModel.vo.SearchResultVo
 
 
 class SearchVm : BaseVm() {
+    private val repository: NetworkRepository = NetworkRepository()
+
     val voSearch: MutableLiveData<ArrayList<Document>> by lazy {
         MutableLiveData<ArrayList<Document>>()
     }
@@ -22,49 +22,43 @@ class SearchVm : BaseVm() {
     val strSearch: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
-   // var list: LiveData<PagedList<Document>>
 
-//    init {
-//
-//        val pageListConfig = PagedList.Config.Builder()
-//            .setPageSize(PAGE_SIZE)
-//            .setEnablePlaceholders(false)
-//            .build()
-//
-//        val dataSourceFactory = DataSourceFactory()
-//        val dataSource = dataSourceFactory.create()
-//
-//        list =
-//            LivePagedListBuilder<Int, Document>(dataSourceFactory, pageListConfig).setBoundaryCallback(object :PagedList.BoundaryCallback(){
-//
-//            } ).build()
-//    }
+    private val repoResult: LiveData<SearchResultVo> = Transformations.map(strSearch) {
+        repository.search(it)
+    }
+
+    val repos: LiveData<PagedList<Document>> = Transformations.switchMap(repoResult,
+        { it->it.data })
 
     private fun search(url: String) {
-        statusNetwork.value = NetworkStatus(url, STATUS.PREPARED)
+//        statusNetwork.value = NetworkStatus(url, STATUS.PREPARED)
+//
+//        NetworkRequest.getInstance()
+//            .requestSearch(strSearch.value!!, object : Callback<VoSearch> {
+//                override fun onFailure(call: Call<VoSearch>, t: Throwable) {
+//                    Log.d("========= fail ==============")
+//                    Log.d("${t.message}")
+//                    Log.d("=======================")
+//                    searchFail(url)
+//                }
+//
+//                override fun onResponse(
+//                    call: Call<VoSearch>,
+//                    response: Response<VoSearch>
+//                ) {
+//                    Log.d("===========success============")
+//                    if (response.isSuccessful) {
+//                        voSearch.postValue(response.body()!!.documents)
+//                        statusNetwork.value = NetworkStatus(url, STATUS.SUCCESS)
+//                    } else {
+//                        searchFail(url)
+//                    }
+//                }
+//            })
+    }
 
-        NetworkRequest.getInstance()
-            .requestSearch(strSearch.value!!, object : Callback<VoSearch> {
-                override fun onFailure(call: Call<VoSearch>, t: Throwable) {
-                    Log.d("========= fail ==============")
-                    Log.d("${t.message}")
-                    Log.d("=======================")
-                    searchFail(url)
-                }
+    private fun search() {
 
-                override fun onResponse(
-                    call: Call<VoSearch>,
-                    response: Response<VoSearch>
-                ) {
-                    Log.d("===========success============")
-                    if (response.isSuccessful) {
-                        voSearch.postValue(response.body()!!.documents)
-                        statusNetwork.value = NetworkStatus(url, STATUS.SUCCESS)
-                    } else {
-                        searchFail(url)
-                    }
-                }
-            })
     }
 
     private fun searchFail(url: String) {
@@ -80,22 +74,32 @@ class SearchVm : BaseVm() {
         strSearch.value = str
     }
 
+//    fun clickSearch(str: String) {
+//        var url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
+//        statusNetwork.value = NetworkStatus(url, STATUS.NONE)
+//        setStrSearch(str)
+//        if (isEmpty()) {
+//            return
+//        }
+//        search(url)
+//    }
+
     fun clickSearch(str: String) {
-        var url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
-        statusNetwork.value = NetworkStatus(url, STATUS.NONE)
         setStrSearch(str)
         if (isEmpty()) {
             return
         }
-        search(url)
+
+        repoResult.value == null
     }
 
     fun isEmptyDocuments(): Boolean {
-        return if (voSearch.value == null) {
-            true
-        } else {
-            var item = voSearch.value!!
-            item == null || item.size == 0
-        }
+//        return if (voSearch.value == null) {
+//            true
+//        } else {
+//            var item = voSearch.value!!
+//            item == null || item.size == 0
+//        }
+        return false
     }
 }

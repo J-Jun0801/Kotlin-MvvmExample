@@ -1,9 +1,12 @@
 package com.jjg.testmvvm.data.dataSourceFactory
 
 import androidx.paging.PageKeyedDataSource
-import com.jjg.testmvvm.model.network.NetworkRequest
+import com.jjg.testmvvm.model.network.core.RetrofitBuilder
 import com.jjg.testmvvm.model.network.vo.resp.Document
+import com.jjg.testmvvm.model.network.vo.resp.VoSearch
 import com.jjg.testmvvm.model.util.log.Log
+import retrofit2.Call
+import retrofit2.Response
 
 /**
  * https://developer.android.com/reference/android/arch/paging/DataSource
@@ -21,7 +24,7 @@ class SearchDataSource(private val query: String) : PageKeyedDataSource<Int, Doc
         val curPage = 1
         val nextPage = curPage + 1
 
-        NetworkRequest.getInstance().search(query, curPage, 10,
+        requestSearch(curPage, 10,
             { repos ->
                 callback.onResult(repos, null, nextPage)
             }, { error ->
@@ -34,7 +37,7 @@ class SearchDataSource(private val query: String) : PageKeyedDataSource<Int, Doc
         callback: PageKeyedDataSource.LoadCallback<Int, Document>
     ) {
         Log.i("================ loadAfter, key: ${params.key}, size: ${params.requestedLoadSize}")
-        NetworkRequest.getInstance().search(query, params.key, 10,
+        requestSearch(params.key, 10,
             { repos ->
                 val nextKey = params.key + 1
                 callback.onResult(repos, nextKey)
@@ -49,4 +52,34 @@ class SearchDataSource(private val query: String) : PageKeyedDataSource<Int, Doc
         callback: PageKeyedDataSource.LoadCallback<Int, Document>
     ) {
     }
+
+    private fun requestSearch(
+        page: Int,
+        size: Int,
+        onSuccess: (repos: List<Document>) -> Unit,
+        onError: (error: String) -> Unit
+    ) {
+        val call = RetrofitBuilder().apiService.search(query, page.toString(), size.toString())
+        call.enqueue(object : retrofit2.Callback<VoSearch> {
+            override fun onFailure(call: Call<VoSearch>?, t: Throwable) {
+                Log.d("fail to get data")
+                onError(t.message ?: "unknown error")
+            }
+
+            override fun onResponse(
+                call: Call<VoSearch>?,
+                response: Response<VoSearch>
+            ) {
+                Log.d("got a response $response")
+                if (response.isSuccessful) {
+                    val repos: ArrayList<Document> = response.body()!!.documents
+                    onSuccess(repos)
+                } else {
+                    onError(response.errorBody()?.string() ?: "Unknown error")
+                }
+            }
+        })
+    }
 }
+
+

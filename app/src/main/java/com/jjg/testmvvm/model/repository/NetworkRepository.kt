@@ -23,8 +23,11 @@ import com.jjg.testmvvm.viewModel.vo.SearchResultVo
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
+/**
+ * Network 관련 Repository
+ */
 class NetworkRepository() {
-    private val executor: Executor = Executors.newFixedThreadPool(5)
+    private val executor: Executor = Executors.newSingleThreadExecutor()
 
     fun search(query: String): SearchResultVo {
         val dataSourceFactory = SearchDataFactory(query)

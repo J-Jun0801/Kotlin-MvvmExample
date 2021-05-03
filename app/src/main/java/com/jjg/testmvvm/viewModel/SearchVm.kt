@@ -15,10 +15,6 @@ import com.jjg.testmvvm.viewModel.vo.SearchResultVo
 class SearchVm : BaseVm() {
     private val repository: NetworkRepository = NetworkRepository()
 
-    val voSearch: MutableLiveData<ArrayList<Document>> by lazy {
-        MutableLiveData<ArrayList<Document>>()
-    }
-
     val strSearch: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
@@ -62,7 +58,6 @@ class SearchVm : BaseVm() {
     }
 
     private fun searchFail(url: String) {
-        voSearch.value!!.clear()
         statusNetwork.value = NetworkStatus(url, STATUS.FAIL)
     }
 

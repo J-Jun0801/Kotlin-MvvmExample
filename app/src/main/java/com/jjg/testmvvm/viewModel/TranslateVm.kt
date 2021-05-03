@@ -1,7 +1,7 @@
 package com.jjg.testmvvm.viewModel
 
 import androidx.lifecycle.MutableLiveData
-import com.jjg.testmvvm.model.network.NetworkRequest
+import com.jjg.testmvvm.model.network.core.RetrofitBuilder
 import com.jjg.testmvvm.model.network.core.STATUS
 import com.jjg.testmvvm.model.network.set.NetworkConstants
 import com.jjg.testmvvm.model.network.set.NetworkStatus
@@ -24,8 +24,10 @@ class TranslateVm : BaseVm() {
 
     private fun translate(url: String) {
         statusNetwork.value = NetworkStatus( url, STATUS.PREPARED)
-        NetworkRequest.getInstance()
-            .requestTranslate(strTranslate.value!!, object : Callback<VoTranslate> {
+        val call = RetrofitBuilder().apiService.translate(
+            strTranslate.value!!, NetworkConstants.LAGN_KR, NetworkConstants.LAGN_EN
+        )
+        call.enqueue( object : Callback<VoTranslate> {
                 override fun onFailure(call: Call<VoTranslate>, t: Throwable) {
                     Log.d( "========= fail ==============")
                     Log.d( "${t.message}")

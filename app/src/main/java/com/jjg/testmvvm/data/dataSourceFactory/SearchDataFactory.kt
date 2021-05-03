@@ -2,6 +2,7 @@ package com.jjg.testmvvm.data.dataSourceFactory
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
+import com.jjg.testmvvm.model.network.set.NetworkStatus
 import com.jjg.testmvvm.model.network.vo.resp.Document
 
 /**
@@ -10,15 +11,16 @@ import com.jjg.testmvvm.model.network.vo.resp.Document
  *
  * @author jjg 21.05.03
  */
-class SearchDataFactory  (
-    private val query: String
+class SearchDataFactory(
+    private val query: String,
+    val statusNetwork: MutableLiveData<NetworkStatus>
 ) : DataSource.Factory<Int, Document>() {
 
     private val dataSourceLiveData: MutableLiveData<SearchDataSource> = MutableLiveData<SearchDataSource>()
     private var dataSource: SearchDataSource? = null
 
     override fun create(): DataSource<Int, Document> {
-        dataSource = SearchDataSource(query)
+        dataSource = SearchDataSource(query,statusNetwork )
         dataSourceLiveData.postValue(dataSource)
         return dataSource!!
     }

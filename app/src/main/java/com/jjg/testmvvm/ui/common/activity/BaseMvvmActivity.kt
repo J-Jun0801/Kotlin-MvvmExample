@@ -27,7 +27,7 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseVm>(
     protected lateinit var binding: V
     protected lateinit var viewModel: VM
 
-    private var networkListener:INetworkListener? = null
+    private var networkListener: INetworkListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,18 +48,25 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseVm>(
             val status = networkStatus.status
             val url = networkStatus.url
             when (status) {
+                STATUS.NONE->{
+                    Log.d("Observer onNoneListener")
+                    if (null != networkListener)
+                        networkListener?.onNoneListener()
+                }
                 STATUS.PREPARED -> {
-                    Log.d( "Observer OnPrepareListener")
+                    Log.d("Observer OnPrepareListener")
                     showDialog()
-                    networkListener?.onPrepareListener()
+                    if (null != networkListener)
+                        networkListener?.onPrepareListener()
                 }
                 STATUS.FAIL -> {
-                    Log.d( "Observer OnFailListener")
+                    Log.d("Observer OnFailListener")
                     closeDialog()
-                    networkListener?.onFailListener()
+                    if (null != networkListener)
+                        networkListener?.onFailListener()
                 }
                 STATUS.SUCCESS -> {
-                    Log.d( "Observer OnSuccessListener")
+                    Log.d("Observer OnSuccessListener")
                     closeDialog()
                     networkListener?.onSuccessListener(url)
                 }
@@ -70,7 +77,7 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseVm>(
 
     abstract fun bindViewModel()
 
-    fun setNetworkListener(networkListener: INetworkListener){
+    fun setNetworkListener(networkListener: INetworkListener) {
         this.networkListener = networkListener
     }
 }

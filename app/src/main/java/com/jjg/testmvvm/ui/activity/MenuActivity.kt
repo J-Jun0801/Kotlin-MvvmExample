@@ -28,7 +28,7 @@ class MenuActivity : BaseMvvmActivity<ActivityMenuBinding, MenuVm>(
                     startActivity(Intent(this,SearchActivity::class.java))
                 }
                 EVENT_ID_PAGING -> {
-                    startActivity(Intent(this,PagingActivity::class.java))
+
                 }
             }
         }

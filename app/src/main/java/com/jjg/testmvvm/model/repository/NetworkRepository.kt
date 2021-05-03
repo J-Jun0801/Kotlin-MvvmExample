@@ -16,9 +16,11 @@
 
 package com.jjg.testmvvm.model.repository
 
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.jjg.testmvvm.data.dataSourceFactory.SearchDataFactory
+import com.jjg.testmvvm.model.network.set.NetworkStatus
 import com.jjg.testmvvm.viewModel.vo.SearchResultVo
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -29,8 +31,8 @@ import java.util.concurrent.Executors
 class NetworkRepository() {
     private val executor: Executor = Executors.newSingleThreadExecutor()
 
-    fun search(query: String): SearchResultVo {
-        val dataSourceFactory = SearchDataFactory(query)
+    fun search(query: String, statusNetwork: MutableLiveData<NetworkStatus>): SearchResultVo {
+        val dataSourceFactory = SearchDataFactory(query,statusNetwork)
 
         val pagedListConfig = PagedList.Config.Builder()
             .setPageSize(10)
@@ -42,12 +44,6 @@ class NetworkRepository() {
         val data = LivePagedListBuilder(dataSourceFactory, pagedListConfig)
             .setFetchExecutor(executor)
             .build()
-
-//        val networkErrors = Transformations.switchMap(dataSourceFactory.mutableLiveData,
-//            { dataSource ->
-//                dataSource.networkErrors
-//            }
-//        )
 
         return SearchResultVo(data)
 

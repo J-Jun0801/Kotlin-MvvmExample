@@ -47,6 +47,13 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
 
     private fun setListener() {
         setNetworkListener(object : INetworkListener {
+            override fun onNoneListener() {
+                binding.invalidateAll()
+                binding.rvSearch.invalidate()
+                binding.tvEmptyResult.invalidate()
+
+            }
+
             override fun onPrepareListener() {
 
             }
@@ -57,8 +64,6 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
             override fun onSuccessListener(url: String) {
                 if (url.contains(NetworkConstants.URL_SEARCH)) {
                     binding.invalidateAll()
-               //     (binding.rvSearch.adapter!! as SearchAdapter).setViewModel(binding.viewModel!!)
-                    binding.rvSearch.adapter!!.notifyDataSetChanged()
                 }
             }
         })

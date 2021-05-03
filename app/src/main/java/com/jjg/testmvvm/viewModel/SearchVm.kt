@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.PagedList
 import com.jjg.testmvvm.model.network.core.STATUS
+import com.jjg.testmvvm.model.network.set.NetworkConstants
 import com.jjg.testmvvm.model.network.set.NetworkStatus
 import com.jjg.testmvvm.model.network.vo.resp.Document
 import com.jjg.testmvvm.model.repository.NetworkRepository
@@ -20,46 +21,10 @@ class SearchVm : BaseVm() {
     }
 
     private val repoResult: LiveData<SearchResultVo> = Transformations.map(strSearch) {
-        repository.search(it)
+        repository.search(it, statusNetwork)
     }
 
-    val repos: LiveData<PagedList<Document>> = Transformations.switchMap(repoResult,
-        { it->it.data })
-
-    private fun search(url: String) {
-//        statusNetwork.value = NetworkStatus(url, STATUS.PREPARED)
-//
-//        NetworkRequest.getInstance()
-//            .requestSearch(strSearch.value!!, object : Callback<VoSearch> {
-//                override fun onFailure(call: Call<VoSearch>, t: Throwable) {
-//                    Log.d("========= fail ==============")
-//                    Log.d("${t.message}")
-//                    Log.d("=======================")
-//                    searchFail(url)
-//                }
-//
-//                override fun onResponse(
-//                    call: Call<VoSearch>,
-//                    response: Response<VoSearch>
-//                ) {
-//                    Log.d("===========success============")
-//                    if (response.isSuccessful) {
-//                        voSearch.postValue(response.body()!!.documents)
-//                        statusNetwork.value = NetworkStatus(url, STATUS.SUCCESS)
-//                    } else {
-//                        searchFail(url)
-//                    }
-//                }
-//            })
-    }
-
-    private fun search() {
-
-    }
-
-    private fun searchFail(url: String) {
-        statusNetwork.value = NetworkStatus(url, STATUS.FAIL)
-    }
+    val repos: LiveData<PagedList<Document>> = Transformations.switchMap(repoResult) { it -> it.data }
 
     private fun isEmpty(): Boolean {
         return strSearch.value!!.isEmpty()
@@ -69,32 +34,23 @@ class SearchVm : BaseVm() {
         strSearch.value = str
     }
 
-//    fun clickSearch(str: String) {
-//        var url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
-//        statusNetwork.value = NetworkStatus(url, STATUS.NONE)
-//        setStrSearch(str)
-//        if (isEmpty()) {
-//            return
-//        }
-//        search(url)
-//    }
-
     fun clickSearch(str: String) {
         setStrSearch(str)
         if (isEmpty()) {
+            repoResult.value == null
+            val url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
+            statusNetwork.value = NetworkStatus(url, STATUS.NONE)
             return
         }
-
-        repoResult.value == null
     }
 
     fun isEmptyDocuments(): Boolean {
-//        return if (voSearch.value == null) {
-//            true
-//        } else {
-//            var item = voSearch.value!!
-//            item == null || item.size == 0
-//        }
+        return if (repos.value==null || repos.value!!.isEmpty()) {
+            true
+        } else {
+            var item = repos.value!!
+            item == null
+        }
         return false
     }
 }

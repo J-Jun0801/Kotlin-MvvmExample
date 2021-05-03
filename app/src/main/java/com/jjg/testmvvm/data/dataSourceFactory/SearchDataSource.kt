@@ -1,7 +1,11 @@
 package com.jjg.testmvvm.data.dataSourceFactory
 
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.jjg.testmvvm.model.network.core.RetrofitBuilder
+import com.jjg.testmvvm.model.network.core.STATUS
+import com.jjg.testmvvm.model.network.set.NetworkConstants
+import com.jjg.testmvvm.model.network.set.NetworkStatus
 import com.jjg.testmvvm.model.network.vo.resp.Document
 import com.jjg.testmvvm.model.network.vo.resp.VoSearch
 import com.jjg.testmvvm.model.util.log.Log
@@ -14,16 +18,21 @@ import retrofit2.Response
  *
  * @author jjg 21.05.13
  */
-class SearchDataSource(private val query: String) : PageKeyedDataSource<Int, Document>() {
+class SearchDataSource(
+    private val query: String,
+    var statusNetwork: MutableLiveData<NetworkStatus>
+) : PageKeyedDataSource<Int, Document>() {
 
     override fun loadInitial(
         params: PageKeyedDataSource.LoadInitialParams<Int>,
         callback: PageKeyedDataSource.LoadInitialCallback<Int, Document>
     ) {
+        if (query.isEmpty())
+            return
+
         Log.i("================ loadInitial, size : ${params.requestedLoadSize}")
         val curPage = 1
         val nextPage = curPage + 1
-
         requestSearch(curPage, 10,
             { repos ->
                 callback.onResult(repos, null, nextPage)
@@ -59,11 +68,15 @@ class SearchDataSource(private val query: String) : PageKeyedDataSource<Int, Doc
         onSuccess: (repos: List<Document>) -> Unit,
         onError: (error: String) -> Unit
     ) {
+        val url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
+        statusNetwork.postValue(NetworkStatus(url, STATUS.PREPARED))
+
         val call = RetrofitBuilder().apiService.search(query, page.toString(), size.toString())
         call.enqueue(object : retrofit2.Callback<VoSearch> {
             override fun onFailure(call: Call<VoSearch>?, t: Throwable) {
                 Log.d("fail to get data")
                 onError(t.message ?: "unknown error")
+                statusNetwork.postValue(NetworkStatus(url, STATUS.FAIL))
             }
 
             override fun onResponse(
@@ -74,8 +87,10 @@ class SearchDataSource(private val query: String) : PageKeyedDataSource<Int, Doc
                 if (response.isSuccessful) {
                     val repos: ArrayList<Document> = response.body()!!.documents
                     onSuccess(repos)
+                    statusNetwork.postValue(NetworkStatus(url, STATUS.SUCCESS))
                 } else {
                     onError(response.errorBody()?.string() ?: "Unknown error")
+                    statusNetwork.postValue(NetworkStatus(url, STATUS.FAIL))
                 }
             }
         })

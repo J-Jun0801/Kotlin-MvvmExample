@@ -25,7 +25,6 @@
         </activity>
         <activity android:name=".ui.activity.TranslateActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
-        <activity android:name=".ui.activity.PagingActivity" />
     </application>
 
 </manifest>

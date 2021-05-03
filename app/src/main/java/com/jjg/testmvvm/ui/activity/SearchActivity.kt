@@ -25,13 +25,6 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
     }
 
     override fun bindViewModel() {
-//        val listObserver = Observer<PagedList<Document>> {
-//            if (adapter == null)
-//                return@Observer
-//            adapter.submitList(it)
-//        }
-//        viewModel.list.observe(this, listObserver)
-
         viewModel.repos.observe(this, Observer<PagedList<Document>> {
             adapter.submitList(it)
         })
@@ -39,7 +32,7 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
     }
 
     private fun initView() {
-        adapter = SearchAdapter(null)
+        adapter = SearchAdapter()
         binding.rvSearch.adapter = adapter
         binding.rvSearch.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -49,9 +42,6 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
         setNetworkListener(object : INetworkListener {
             override fun onNoneListener() {
                 binding.invalidateAll()
-                binding.rvSearch.invalidate()
-                binding.tvEmptyResult.invalidate()
-
             }
 
             override fun onPrepareListener() {

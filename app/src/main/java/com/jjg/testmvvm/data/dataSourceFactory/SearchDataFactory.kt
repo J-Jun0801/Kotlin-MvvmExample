@@ -13,14 +13,14 @@ import com.jjg.testmvvm.model.network.vo.resp.Document
  */
 class SearchDataFactory(
     private val query: String,
-    val statusNetwork: MutableLiveData<NetworkStatus>
+    private val statusNetwork: MutableLiveData<NetworkStatus>
 ) : DataSource.Factory<Int, Document>() {
 
-    private val dataSourceLiveData: MutableLiveData<SearchDataSource> = MutableLiveData<SearchDataSource>()
+    private val dataSourceLiveData: MutableLiveData<SearchDataSource> = MutableLiveData()
     private var dataSource: SearchDataSource? = null
 
     override fun create(): DataSource<Int, Document> {
-        dataSource = SearchDataSource(query,statusNetwork )
+        dataSource = SearchDataSource(query, statusNetwork)
         dataSourceLiveData.postValue(dataSource)
         return dataSource!!
     }

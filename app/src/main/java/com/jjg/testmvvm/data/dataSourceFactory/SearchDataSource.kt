@@ -20,12 +20,15 @@ import retrofit2.Response
  */
 class SearchDataSource(
     private val query: String,
-    var statusNetwork: MutableLiveData<NetworkStatus>
+    private  var statusNetwork: MutableLiveData<NetworkStatus>
 ) : PageKeyedDataSource<Int, Document>() {
 
+    /**
+     * 최초 진입시 로드
+     */
     override fun loadInitial(
-        params: PageKeyedDataSource.LoadInitialParams<Int>,
-        callback: PageKeyedDataSource.LoadInitialCallback<Int, Document>
+        params: LoadInitialParams<Int>,
+        callback: LoadInitialCallback<Int, Document>
     ) {
         if (query.isEmpty())
             return
@@ -41,9 +44,12 @@ class SearchDataSource(
             })
     }
 
+    /**
+     * snap shot 이후 불러올 데이터
+     */
     override fun loadAfter(
-        params: PageKeyedDataSource.LoadParams<Int>,
-        callback: PageKeyedDataSource.LoadCallback<Int, Document>
+        params: LoadParams<Int>,
+        callback: LoadCallback<Int, Document>
     ) {
         Log.i("================ loadAfter, key: ${params.key}, size: ${params.requestedLoadSize}")
         requestSearch(params.key, 10,
@@ -57,8 +63,8 @@ class SearchDataSource(
     }
 
     override fun loadBefore(
-        params: PageKeyedDataSource.LoadParams<Int>,
-        callback: PageKeyedDataSource.LoadCallback<Int, Document>
+        params: LoadParams<Int>,
+        callback: LoadCallback<Int, Document>
     ) {
     }
 

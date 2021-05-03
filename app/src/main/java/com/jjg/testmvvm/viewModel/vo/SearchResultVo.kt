@@ -6,6 +6,4 @@ import com.jjg.testmvvm.model.network.vo.resp.Document
 
 class SearchResultVo(
     val data: LiveData<PagedList<Document>>
-) {
-
-}
+)

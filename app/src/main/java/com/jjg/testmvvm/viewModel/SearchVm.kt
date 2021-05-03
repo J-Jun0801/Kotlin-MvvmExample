@@ -24,7 +24,8 @@ class SearchVm : BaseVm() {
         repository.search(it, statusNetwork)
     }
 
-    val repos: LiveData<PagedList<Document>> = Transformations.switchMap(repoResult) { it -> it.data }
+    val repos: LiveData<PagedList<Document>> =
+        Transformations.switchMap(repoResult) { it -> it.data }
 
     private fun isEmpty(): Boolean {
         return strSearch.value!!.isEmpty()
@@ -45,12 +46,10 @@ class SearchVm : BaseVm() {
     }
 
     fun isEmptyDocuments(): Boolean {
-        return if (repos.value==null || repos.value!!.isEmpty()) {
+        return if (repos.value == null || repos.value!!.isEmpty()) {
             true
         } else {
-            var item = repos.value!!
-            item == null
+            repos.value == null
         }
-        return false
     }
 }

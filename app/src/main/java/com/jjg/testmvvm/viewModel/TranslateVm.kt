@@ -32,7 +32,7 @@ class TranslateVm : BaseVm() {
                     Log.d( "========= fail ==============")
                     Log.d( "${t.message}")
                     Log.d( "=======================")
-                    clearVoTranslate(url)
+                    clearVoTranslate(url,"",t.message.toString())
                 }
 
                 override fun onResponse(
@@ -46,15 +46,15 @@ class TranslateVm : BaseVm() {
                         voTranslate.postValue(response.body())
                         statusNetwork.value = NetworkStatus( url, STATUS.SUCCESS)
                     } else {
-                        clearVoTranslate(url)
+                        clearVoTranslate(url,response.code().toString(), response.message())
                     }
                 }
             })
     }
 
-    private fun clearVoTranslate(url: String) {
+    private fun clearVoTranslate(url: String, title: String, message: String) {
         voTranslate.postValue(VoTranslate(listOf(listOf(""))))
-        statusNetwork.value = NetworkStatus( url, STATUS.FAIL)
+        statusNetwork.value = NetworkStatus( url, STATUS.FAIL,title,message)
     }
 
     private fun isEmpty(): Boolean {

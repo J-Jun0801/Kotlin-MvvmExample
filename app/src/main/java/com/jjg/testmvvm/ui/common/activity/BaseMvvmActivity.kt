@@ -48,26 +48,29 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseVm>(
             val status = networkStatus.status
             val url = networkStatus.url
             when (status) {
-                STATUS.NONE->{
+                STATUS.NONE -> {
                     Log.d("Observer onNoneListener")
                     if (null != networkListener)
                         networkListener?.onNoneListener()
                 }
                 STATUS.PREPARED -> {
                     Log.d("Observer OnPrepareListener")
-                    showDialog()
+                    showLoadingDialog()
                     if (null != networkListener)
                         networkListener?.onPrepareListener()
                 }
                 STATUS.FAIL -> {
                     Log.d("Observer OnFailListener")
-                    closeDialog()
+                    closeLoadingDialog()
                     if (null != networkListener)
-                        networkListener?.onFailListener()
+                        networkListener?.onFailListener(
+                            networkStatus.errorTitle,
+                            networkStatus.errorContent
+                        )
                 }
                 STATUS.SUCCESS -> {
                     Log.d("Observer OnSuccessListener")
-                    closeDialog()
+                    closeLoadingDialog()
                     networkListener?.onSuccessListener(url)
                 }
             }

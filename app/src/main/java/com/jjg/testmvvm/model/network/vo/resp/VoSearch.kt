@@ -2,6 +2,7 @@ package com.jjg.testmvvm.model.network.vo.resp
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.jjg.testmvvm.model.util.date.DateUtil
 
 data class VoSearch(
     @SerializedName("documents")
@@ -29,7 +30,13 @@ data class Document(
     @SerializedName("url")
     @Expose
     val url: String
-)
+) {
+
+    fun getDateTime(): String {
+        val date = DateUtil.iso8601ToDate(datetime)
+        return DateUtil.dateToDateFormat(date, "yyyy년 MM월 dd일 a HH시 mm분 ss초")
+    }
+}
 
 data class Meta(
     @SerializedName("isEnd")

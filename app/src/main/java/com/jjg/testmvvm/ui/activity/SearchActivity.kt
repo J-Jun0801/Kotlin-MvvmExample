@@ -9,6 +9,7 @@ import com.jjg.testmvvm.databinding.ActivitySearchBinding
 import com.jjg.testmvvm.model.network.core.INetworkListener
 import com.jjg.testmvvm.model.network.set.NetworkConstants
 import com.jjg.testmvvm.model.network.vo.resp.Document
+import com.jjg.testmvvm.model.util.log.Log
 import com.jjg.testmvvm.ui.adapter.SearchAdapter
 import com.jjg.testmvvm.ui.common.activity.BaseMvvmActivity
 import com.jjg.testmvvm.viewModel.SearchVm
@@ -48,7 +49,9 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
 
             }
 
-            override fun onFailListener() {
+            override fun onFailListener(title: String, message: String) {
+                Log.e("================== title : $title , message : $message")
+                showNetworkDialog(title, message)
             }
 
             override fun onSuccessListener(url: String) {

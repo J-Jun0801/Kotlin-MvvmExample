@@ -39,7 +39,6 @@ class SearchAdapter() : PagedListAdapter<Document, SearchViewHolder>(DIFF_CALLBA
             override fun areContentsTheSame(oldItem: Document, newItem: Document): Boolean {
                 return oldItem == newItem;
             }
-
         }
     }
 }

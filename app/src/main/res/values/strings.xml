@@ -1,11 +1,21 @@
 <resources>
     <string name="app_name">TestMvvm</string>
 
-    <string name="str_hint_translate_input">번역할 문장을 입력해주세요</string>
-    <string name="str_retry">다시 시도해주세요</string>
+    <!--    공통-->
     <string name="str_confirm">확인</string>
+
+    <!--    번역      -->
     <string name="str_translate">Translate</string>
+    <string name="str_hint_translate_input">번역할 문장을 입력해주세요</string>
+
+    <!--    검색-->
     <string name="str_search">Paging Search</string>
-    <string name="str_paging">comming soon</string>
     <string name="str_empty_result">결과가 없습니다</string>
+    <string name="str_search_result">검색 결과</string>
+
+    <!--    네트워크-->
+    <string name="str_retry">다시 시도해주세요</string>
+
+
+    <string name="str_paging">comming soon</string>
 </resources>

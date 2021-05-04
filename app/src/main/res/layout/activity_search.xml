@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -12,6 +13,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -25,28 +28,49 @@
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_weight="1"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/shape_rect_r_20dp_st_1dp"
                 android:text="@{viewModel.strSearch}" />
 
             <Button
                 android:id="@+id/btnSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:onClick="@{()->viewModel.clickSearch(etSearch.getText().toString())}"
-                android:text="@string/str_confirm" />
+                android:padding="9dp"
+                android:text="@string/str_confirm"
+                android:textSize="15dp" />
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/ll_search">
+            android:layout_below="@id/ll_search"
+            android:layout_marginTop="10dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_search"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{viewModel.emptyDocuments ? View. GONE: View.VISIBLE}" />
+                android:orientation="vertical"
+                android:visibility="@{viewModel.emptyDocuments ? View. GONE: View.VISIBLE}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_search_result"
+                    android:textSize="18dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_search"
+                    android:overScrollMode="never"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_empty_result"

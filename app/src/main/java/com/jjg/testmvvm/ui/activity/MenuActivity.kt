@@ -22,10 +22,10 @@ class MenuActivity : BaseMvvmActivity<ActivityMenuBinding, MenuVm>(
         val eventIdObserver = Observer<Int> { eventId ->
             when (eventId) {
                 EVENT_ID_TRANSLATE -> {
-                    startActivity(Intent(this,TranslateActivity::class.java))
+                    startActivity(Intent(this, TranslateActivity::class.java))
                 }
                 EVENT_ID_SEARCH -> {
-                    startActivity(Intent(this,SearchActivity::class.java))
+                    startActivity(Intent(this, SearchActivity::class.java))
                 }
                 EVENT_ID_PAGING -> {
 

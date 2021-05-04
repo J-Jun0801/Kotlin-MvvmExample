@@ -2,43 +2,56 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.text.Html"/>
+        <import type="android.view.View" />
         <variable
             name="vo"
             type="com.jjg.testmvvm.model.network.vo.resp.Document" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
+        android:layout_margin="20dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{vo.title}" />
+            android:text="@{Html.fromHtml(vo.title)}"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tv_contents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{vo.contents}" />
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="10dp"
+            android:text="@{Html.fromHtml(vo.contents)}"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/tv_url"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{vo.url}" />
+            android:text="@{vo.url}"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_datetime"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/tv_title"
             android:layout_height="wrap_content"
-            android:text="@{vo.datetime}" />
+            android:layout_toRightOf="@id/tv_title"
+            android:text="@{vo.getDateTime()}"
+            android:textSize="14dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
             android:background="#0083ff" />
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

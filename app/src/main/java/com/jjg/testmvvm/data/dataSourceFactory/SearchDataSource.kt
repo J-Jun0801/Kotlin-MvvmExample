@@ -5,6 +5,7 @@ import androidx.paging.PageKeyedDataSource
 import com.jjg.testmvvm.model.network.core.RetrofitBuilder
 import com.jjg.testmvvm.model.network.core.STATUS
 import com.jjg.testmvvm.model.network.set.NetworkConstants
+import com.jjg.testmvvm.model.network.set.NetworkConstants.Companion.PAGE_SIZE
 import com.jjg.testmvvm.model.network.set.NetworkStatus
 import com.jjg.testmvvm.model.network.vo.resp.Document
 import com.jjg.testmvvm.model.network.vo.resp.VoSearch
@@ -20,7 +21,7 @@ import retrofit2.Response
  */
 class SearchDataSource(
     private val query: String,
-    private  var statusNetwork: MutableLiveData<NetworkStatus>
+    private var statusNetwork: MutableLiveData<NetworkStatus>
 ) : PageKeyedDataSource<Int, Document>() {
 
     /**
@@ -36,12 +37,9 @@ class SearchDataSource(
         Log.i("================ loadInitial, size : ${params.requestedLoadSize}")
         val curPage = 1
         val nextPage = curPage + 1
-        requestSearch(curPage, 10,
-            { repos ->
-                callback.onResult(repos, null, nextPage)
-            }, { error ->
-                //FIXME 에러일경우 어떻게 해야할까 ..
-            })
+        requestSearch(curPage, PAGE_SIZE) { repos ->
+            callback.onResult(repos, null, nextPage)
+        }
     }
 
     /**
@@ -52,14 +50,10 @@ class SearchDataSource(
         callback: LoadCallback<Int, Document>
     ) {
         Log.i("================ loadAfter, key: ${params.key}, size: ${params.requestedLoadSize}")
-        requestSearch(params.key, 10,
-            { repos ->
-                val nextKey = params.key + 1
-                callback.onResult(repos, nextKey)
-            }, { error ->
-                //FIXME 에러일경우 어떻게 해야할까 ..
-            }
-        )
+        requestSearch(params.key, PAGE_SIZE) { repos ->
+            val nextKey = params.key + 1
+            callback.onResult(repos, nextKey)
+        }
     }
 
     override fun loadBefore(
@@ -71,8 +65,7 @@ class SearchDataSource(
     private fun requestSearch(
         page: Int,
         size: Int,
-        onSuccess: (repos: List<Document>) -> Unit,
-        onError: (error: String) -> Unit
+        onSuccess: (repos: List<Document>) -> Unit
     ) {
         val url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
         statusNetwork.postValue(NetworkStatus(url, STATUS.PREPARED))
@@ -81,8 +74,8 @@ class SearchDataSource(
         call.enqueue(object : retrofit2.Callback<VoSearch> {
             override fun onFailure(call: Call<VoSearch>?, t: Throwable) {
                 Log.d("fail to get data")
-                onError(t.message ?: "unknown error")
-                statusNetwork.postValue(NetworkStatus(url, STATUS.FAIL))
+
+                statusNetwork.postValue(NetworkStatus(url, STATUS.FAIL, "", t.message.toString()))
             }
 
             override fun onResponse(
@@ -95,8 +88,14 @@ class SearchDataSource(
                     onSuccess(repos)
                     statusNetwork.postValue(NetworkStatus(url, STATUS.SUCCESS))
                 } else {
-                    onError(response.errorBody()?.string() ?: "Unknown error")
-                    statusNetwork.postValue(NetworkStatus(url, STATUS.FAIL))
+                    statusNetwork.postValue(
+                        NetworkStatus(
+                            url,
+                            STATUS.FAIL,
+                            response.code().toString(),
+                            response.message()
+                        )
+                    )
                 }
             }
         })

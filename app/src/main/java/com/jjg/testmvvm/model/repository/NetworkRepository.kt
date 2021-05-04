@@ -35,8 +35,8 @@ class NetworkRepository() {
         val dataSourceFactory = SearchDataFactory(query,statusNetwork)
 
         val pagedListConfig = PagedList.Config.Builder()
-            .setPageSize(10)
-            .setInitialLoadSizeHint(10)
+            .setPageSize(50)
+            .setInitialLoadSizeHint(50)
             .setPrefetchDistance(10)
             .setEnablePlaceholders(true)
             .build()

@@ -2,11 +2,12 @@ package com.jjg.testmvvm.ui.common.activity
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.*
+import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.jjg.testmvvm.ui.dialog.CustomsDialog
+import com.jjg.testmvvm.ui.dialog.LoadingDialog
+import com.jjg.testmvvm.ui.dialog.NetworkDialog
 
 
 /**
@@ -15,15 +16,18 @@ import com.jjg.testmvvm.ui.dialog.CustomsDialog
  */
 open class BaseActivity : AppCompatActivity() {
 
-    private lateinit var dialog: CustomsDialog
+    private lateinit var loadingDialog: LoadingDialog
+    private lateinit var networkDialog: NetworkDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
     }
 
-    private fun init(){
-        dialog=CustomsDialog(this)
+    private fun init() {
+        loadingDialog = LoadingDialog(this)
+        networkDialog = NetworkDialog(this)
     }
+
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (ev!!.action == MotionEvent.ACTION_UP)
             hideKeyboard()
@@ -37,17 +41,31 @@ open class BaseActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
     }
 
-    fun showDialog() {
-        if (!dialog.isShowing) {
-            dialog = CustomsDialog(this)
-            dialog.show()
+    fun showLoadingDialog() {
+        if (!loadingDialog.isShowing) {
+            loadingDialog = LoadingDialog(this)
+            loadingDialog.show()
         }
     }
 
 
-    fun closeDialog() {
-        if (dialog.isShowing) {
-            dialog.dismiss()
+    fun closeLoadingDialog() {
+        if (loadingDialog.isShowing) {
+            loadingDialog.dismiss()
+        }
+    }
+
+    fun showNetworkDialog(title: String, content: String) {
+        if (!networkDialog.isShowing) {
+            networkDialog = NetworkDialog(this)
+            networkDialog.show()
+            networkDialog.setNetworkDialog(title, content)
+        }
+    }
+
+    fun closeNetworkDialog() {
+        if (networkDialog.isShowing) {
+            networkDialog.dismiss()
         }
     }
 }

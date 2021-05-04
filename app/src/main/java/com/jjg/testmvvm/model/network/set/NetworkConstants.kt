@@ -11,9 +11,9 @@ class NetworkConstants {
         const val H_KEY_AUTHORIZATION = "Authorization"
         const val H_VALUE_KAKAO_AK = "KakaoAK $REST_API_KEY"
 
-
         const val URL_TRANSLATE = "/v2/translation/translate"
         const val URL_SEARCH= "/v2/search/web"
 
+        const val PAGE_SIZE= 50
     }
 }

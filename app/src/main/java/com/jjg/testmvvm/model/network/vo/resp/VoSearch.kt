@@ -34,7 +34,7 @@ data class Document(
 
     fun getDateTime(): String {
         val date = DateUtil.iso8601ToDate(datetime)
-        return DateUtil.dateToDateFormat(date, "yyyy년 MM월 dd일 a HH시 mm분 ss초")
+        return DateUtil.dateToDateFormat(date, "yyyy.MM.dd\na HH:mm:ss")
     }
 }
 

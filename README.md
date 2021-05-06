@@ -20,7 +20,9 @@
     - ItemKeyedDataSource	:로드 된 콘텐츠가 이전에로드 된 항목을 향후로드에 대한 입력으로 사용하는 키가 지정된 콘텐츠를 페이징<br>
     - PageKeyedDataSource	: 요청이 다음 / 이전 페이지에 대한 키를 반환하는 페이지 키 콘텐츠 기준으로 페이징<br>
     - PositionalDataSource : 임의의 페이지 위치에서 고정 크기로드를 지원하는 고정 크기, 계산 가능한 데이터 세트 기준으로 위치를 기반으로 페이징<br>
-<br>
+    <br>
+    해당 프로젝트는 PageKeyedDataSource로 사용함<br>
+    <br>
   c. Sample<br>
     - Paging을 활용할수 있게끔, step별로 나눠 놓음<br>
     - [참고 사이트] https://developer.android.com/codelabs/android-paging#0

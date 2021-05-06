@@ -20,12 +20,12 @@ class SearchVm : BaseVm() {
         MutableLiveData<String>()
     }
 
-    private val repoResult: LiveData<SearchResultVo> = Transformations.map(strSearch) {
+    private val resultSearch: LiveData<SearchResultVo> = Transformations.map(strSearch) {
         repository.search(it, statusNetwork)
     }
 
-    val repos: LiveData<PagedList<Document>> =
-        Transformations.switchMap(repoResult) { it -> it.data }
+    val searchList: LiveData<PagedList<Document>> =
+        Transformations.switchMap(resultSearch) { it -> it.data }
 
     private fun isEmpty(): Boolean {
         return strSearch.value!!.isEmpty()
@@ -38,7 +38,7 @@ class SearchVm : BaseVm() {
     fun clickSearch(str: String) {
         setStrSearch(str)
         if (isEmpty()) {
-            repoResult.value == null
+            resultSearch.value == null
             val url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
             statusNetwork.value = NetworkStatus(url, STATUS.NONE)
             return
@@ -46,10 +46,10 @@ class SearchVm : BaseVm() {
     }
 
     fun isEmptyDocuments(): Boolean {
-        return if (repos.value == null || repos.value!!.isEmpty()) {
+        return if (searchList.value == null || searchList.value!!.isEmpty()) {
             true
         } else {
-            repos.value == null
+            searchList.value == null
         }
     }
 }

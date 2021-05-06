@@ -26,9 +26,10 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
     }
 
     override fun bindViewModel() {
-        viewModel.repos.observe(this, Observer<PagedList<Document>> {
+        viewModel.searchList.observe(this, Observer<PagedList<Document>> {
             adapter.submitList(it)
         })
+
         binding.viewModel = viewModel
     }
 

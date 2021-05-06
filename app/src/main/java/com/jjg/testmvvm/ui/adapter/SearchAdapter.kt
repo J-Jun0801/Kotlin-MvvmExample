@@ -8,10 +8,6 @@ import com.jjg.testmvvm.databinding.ItemSearchBinding
 import com.jjg.testmvvm.model.network.vo.resp.Document
 import com.jjg.testmvvm.ui.adapter.viewholder.SearchViewHolder
 
-/**
- * https://brunch.co.kr/@oemilk/211
- */
-
 class SearchAdapter() : PagedListAdapter<Document, SearchViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {

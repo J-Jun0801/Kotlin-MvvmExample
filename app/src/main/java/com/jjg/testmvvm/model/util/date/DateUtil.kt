@@ -55,9 +55,42 @@ class DateUtil {
          *
          * @return 20201년 05월 04일  오전 00시 00분 00초
          */
-        fun dateToDateFormat(date:Date,dateFormat:String):String{
+        fun dateToDateFormat(date: Date, dateFormat: String): String {
             val resultFormat = SimpleDateFormat(dateFormat)
             return resultFormat.format(date)
+        }
+
+
+        /**
+         * 현재 시간이
+         * ex) 17:30 ~ 22:00 사이에 있는지
+         * @return boolean 값으로 반환
+         */
+        fun getCompareTime(): Boolean? {
+            val calStart: Calendar = getTime()
+            val calEnd: Calendar = getTime()
+            val calValue: Calendar = Calendar.getInstance()
+
+            var result = false
+            if (calStart.before(calValue) && calEnd.after(calValue)) {
+                result = true
+            }
+            return result
+        }
+
+        /**
+         * 원하는  시간 설정
+         * @return 위의 해당하는 Calendar 반환
+         */
+        private fun getTime(): Calendar {
+            val cal = Calendar.getInstance()
+
+            cal.set(Calendar.HOUR_OF_DAY, 17)
+            cal.set(Calendar.MINUTE, 30)
+            cal.set(Calendar.SECOND, 0)
+            cal.set(Calendar.MILLISECOND, 0)
+
+            return cal
         }
     }
 }

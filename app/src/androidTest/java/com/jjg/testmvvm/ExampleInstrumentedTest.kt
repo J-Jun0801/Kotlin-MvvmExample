@@ -1,6 +1,7 @@
 package com.jjg.testmvvm
 
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -8,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.jjg.testmvvm.ui.activity.MenuActivity
+import org.hamcrest.CoreMatchers.allOf
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -17,6 +19,11 @@ import org.junit.runner.RunWith
  * Instrumented test, which will execute on an Android device.
  *
  * See [testing documentation](http://d.android.com/tools/testing).
+ */
+
+/**
+ * Espressso
+ * UI관련 테스트
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
@@ -35,6 +42,7 @@ class ExampleInstrumentedTest {
     @Test
     fun clickTranslate() {
         Espresso.onView(withId(R.id.btn_translate)).perform(click())
+//        Espresso.onView(withId(R.id.btn_translate)).perform(longClick())
     }
 
     @Test
@@ -57,6 +65,20 @@ class ExampleInstrumentedTest {
     @Test
     fun isOnDrawDisplay() {
         Espresso.onView(withId(R.id.btn_comming_soon))
+            .check(matches(isDisplayed()))
+    }
+
+    /**
+     * withParent(withText("TEXT")) // 부모에게서
+     * withChild(withText("TEXT")) // 자식들에게서
+     * hasSibling(withText("TEXT")) // 같은 계층의 뷰들
+     * hasDescendant(withText("TEXT")) // 하위 계층의 모든 뷰들
+     *
+     * 관계를 통해 탐색 대상을 지정하는 함수
+     */
+    @Test
+    fun searchRelation() {
+        onView(allOf(withId(R.id.ll_root), hasDescendant(withText("Translate"))))
             .check(matches(isDisplayed()))
     }
 }

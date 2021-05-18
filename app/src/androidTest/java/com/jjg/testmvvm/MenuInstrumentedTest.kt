@@ -26,7 +26,7 @@ import org.junit.runner.RunWith
  * UI관련 테스트
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class MenuInstrumentedTest {
     @Rule
     @JvmField
     var menuActivityTestRule: ActivityTestRule<MenuActivity> =

@@ -26,3 +26,8 @@
   c. Sample<br>
     - Paging을 활용할수 있게끔, step별로 나눠 놓음<br>
     - [참고 사이트] https://developer.android.com/codelabs/android-paging#0
+
+
+https://user-images.githubusercontent.com/76588577/119771810-39c0c180-bef9-11eb-915b-6da6ddbd510c.mp4
+![paging_study_introduce](https://user-images.githubusercontent.com/76588577/119771815-3b8a8500-bef9-11eb-9bbb-b6132cc60b1d.gif)
+

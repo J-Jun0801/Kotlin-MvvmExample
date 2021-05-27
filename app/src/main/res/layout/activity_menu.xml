@@ -36,6 +36,5 @@
             android:visibility="invisible"
             android:text="@string/str_paging"
             android:onClick="@{()->viewModel.clickPaging()}"/>
-
     </LinearLayout>
 </layout>

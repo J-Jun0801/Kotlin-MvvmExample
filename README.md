@@ -1,9 +1,16 @@
 # Kotlin, Mvvm Pattern Study<br>
 <br>
-
+Translate<br>
+MVVM 형식의 카카오 번역 API를 이용한 Study<br>
+https://user-images.githubusercontent.com/76588577/119771866-4f35eb80-bef9-11eb-8351-1040ca174c83.mp4
+<br>
+<hr>
+Paging Search<br>
+카카오 검색 API를 이용한 Paging 처리<br>
+https://user-images.githubusercontent.com/76588577/119771810-39c0c180-bef9-11eb-915b-6da6ddbd510c.mp4
+![paging_study_introduce](https://user-images.githubusercontent.com/76588577/119771815-3b8a8500-bef9-11eb-9bbb-b6132cc60b1d.gif)<br>
 1. 기본 형태로 구성<br>
   - ViewModel에서 Context를 가지지 않기 위해 최대한 분리<br>
-   
    <br>
 2. (Android Jetpack) Paging RecyclerView <br>
   ![paging](https://user-images.githubusercontent.com/76588577/117244138-786fd880-ae73-11eb-87c7-19730907b26f.PNG)<br>
@@ -26,15 +33,3 @@
   c. Sample<br>
     - Paging을 활용할수 있게끔, step별로 나눠 놓음<br>
     - [참고 사이트] https://developer.android.com/codelabs/android-paging#0
-
-
-https://user-images.githubusercontent.com/76588577/119771810-39c0c180-bef9-11eb-915b-6da6ddbd510c.mp4
-![paging_study_introduce](https://user-images.githubusercontent.com/76588577/119771815-3b8a8500-bef9-11eb-9bbb-b6132cc60b1d.gif)
-
-<br>
-<br>
-<br>
-<br>
-
-https://user-images.githubusercontent.com/76588577/119771866-4f35eb80-bef9-11eb-8351-1040ca174c83.mp4
-

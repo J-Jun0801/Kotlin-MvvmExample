@@ -1,5 +1,6 @@
 package com.jjg.testmvvm.ui.activity
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
@@ -25,6 +26,10 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
         initView()
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        binding.invalidateAll()
+    }
     override fun bindViewModel() {
         viewModel.searchList.observe(this, Observer<PagedList<Document>> {
             adapter.submitList(it)

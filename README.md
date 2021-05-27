@@ -31,3 +31,10 @@
 https://user-images.githubusercontent.com/76588577/119771810-39c0c180-bef9-11eb-915b-6da6ddbd510c.mp4
 ![paging_study_introduce](https://user-images.githubusercontent.com/76588577/119771815-3b8a8500-bef9-11eb-9bbb-b6132cc60b1d.gif)
 
+<br>
+<br>
+<br>
+<br>
+
+https://user-images.githubusercontent.com/76588577/119771866-4f35eb80-bef9-11eb-8351-1040ca174c83.mp4
+

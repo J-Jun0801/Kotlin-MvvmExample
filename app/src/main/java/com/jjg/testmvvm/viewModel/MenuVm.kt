@@ -7,7 +7,7 @@ class MenuVm : BaseVm() {
     companion object {
         const val EVENT_ID_TRANSLATE = 0
         const val EVENT_ID_SEARCH = 1
-        const val EVENT_ID_PAGING = 2
+        const val EVENT_ID_NAVIGATION = 2
     }
 
     val eventId: MutableLiveData<Int> by lazy {
@@ -22,7 +22,7 @@ class MenuVm : BaseVm() {
         eventId.value = EVENT_ID_SEARCH
     }
 
-    fun clickPaging() {
-        eventId.value = EVENT_ID_PAGING
+    fun clickNavigation() {
+        eventId.value = EVENT_ID_NAVIGATION
     }
 }

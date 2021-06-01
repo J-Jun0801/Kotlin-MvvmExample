@@ -7,7 +7,7 @@ import com.jjg.testmvvm.R
 import com.jjg.testmvvm.databinding.ActivityMenuBinding
 import com.jjg.testmvvm.ui.common.activity.BaseMvvmActivity
 import com.jjg.testmvvm.viewModel.MenuVm
-import com.jjg.testmvvm.viewModel.MenuVm.Companion.EVENT_ID_PAGING
+import com.jjg.testmvvm.viewModel.MenuVm.Companion.EVENT_ID_NAVIGATION
 import com.jjg.testmvvm.viewModel.MenuVm.Companion.EVENT_ID_SEARCH
 import com.jjg.testmvvm.viewModel.MenuVm.Companion.EVENT_ID_TRANSLATE
 
@@ -27,7 +27,7 @@ class MenuActivity : BaseMvvmActivity<ActivityMenuBinding, MenuVm>(
                 EVENT_ID_SEARCH -> {
                     startActivity(Intent(this, SearchActivity::class.java))
                 }
-                EVENT_ID_PAGING -> {
+                EVENT_ID_NAVIGATION -> {
 
                 }
             }

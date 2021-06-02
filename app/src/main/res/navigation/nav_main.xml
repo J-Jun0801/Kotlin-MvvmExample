@@ -18,6 +18,6 @@
         android:id="@+id/secondFragment"
         android:name="com.jjg.testmvvm.ui.fragment.SecondFragment"
         android:label="SecondFragment"
-        tools:layout="@layout/fragment_first" />
+        tools:layout="@layout/fragment_second" />
 
 </navigation>

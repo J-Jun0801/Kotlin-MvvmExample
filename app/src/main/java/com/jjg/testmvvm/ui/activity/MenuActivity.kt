@@ -28,7 +28,7 @@ class MenuActivity : BaseMvvmActivity<ActivityMenuBinding, MenuVm>(
                     startActivity(Intent(this, SearchActivity::class.java))
                 }
                 EVENT_ID_NAVIGATION -> {
-
+                    startActivity(Intent(this, NavigationActivity::class.java))
                 }
             }
         }

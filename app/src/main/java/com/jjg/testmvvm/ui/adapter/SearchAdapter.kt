@@ -8,7 +8,7 @@ import com.jjg.testmvvm.databinding.ItemSearchBinding
 import com.jjg.testmvvm.model.network.vo.resp.Document
 import com.jjg.testmvvm.ui.adapter.viewholder.SearchViewHolder
 
-class SearchAdapter() : PagedListAdapter<Document, SearchViewHolder>(DIFF_CALLBACK) {
+class SearchAdapter : PagedListAdapter<Document, SearchViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val binding = ItemSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,7 +33,7 @@ class SearchAdapter() : PagedListAdapter<Document, SearchViewHolder>(DIFF_CALLBA
              * 아이템을 서로 비교하는게 좋다.
              */
             override fun areContentsTheSame(oldItem: Document, newItem: Document): Boolean {
-                return oldItem == newItem;
+                return oldItem == newItem
             }
         }
     }

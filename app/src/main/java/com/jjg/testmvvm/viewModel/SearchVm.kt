@@ -25,7 +25,7 @@ class SearchVm : BaseVm() {
     }
 
     val searchList: LiveData<PagedList<Document>> =
-        Transformations.switchMap(resultSearch) { it -> it.data }
+        Transformations.switchMap(resultSearch) { it.data }
 
     private fun isEmpty(): Boolean {
         return strSearch.value!!.isEmpty()
@@ -38,7 +38,6 @@ class SearchVm : BaseVm() {
     fun clickSearch(str: String) {
         setStrSearch(str)
         if (isEmpty()) {
-            resultSearch.value == null
             val url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
             statusNetwork.value = NetworkStatus(url, STATUS.NONE)
             return

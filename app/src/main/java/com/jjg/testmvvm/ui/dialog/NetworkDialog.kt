@@ -4,9 +4,11 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import com.jjg.testmvvm.R
+import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.android.synthetic.main.dialog_network.*
+import javax.inject.Inject
 
-class NetworkDialog(context: Context) :
+class NetworkDialog @Inject constructor(@ActivityContext context: Context) :
     Dialog(context, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +22,6 @@ class NetworkDialog(context: Context) :
     }
 
     fun setNetworkDialog(title: String, content: String) {
-        tv_content.text = title+"\n"+content
+        tv_content.text = "$title\n$content"
     }
 }

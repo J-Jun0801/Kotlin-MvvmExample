@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:text="@{vo.getDateTime()}"
                 android:textSize="14dp" />
 

@@ -2,14 +2,11 @@ package com.jjg.testmvvm.ui.activity
 
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jjg.testmvvm.R
 import com.jjg.testmvvm.databinding.ActivitySearchBinding
 import com.jjg.testmvvm.model.network.core.INetworkListener
 import com.jjg.testmvvm.model.network.set.NetworkConstants
-import com.jjg.testmvvm.model.network.vo.resp.Document
 import com.jjg.testmvvm.model.util.log.Log
 import com.jjg.testmvvm.ui.adapter.SearchAdapter
 import com.jjg.testmvvm.ui.common.activity.BaseMvvmActivity
@@ -31,7 +28,7 @@ class SearchActivity : BaseMvvmActivity<ActivitySearchBinding, SearchVm>(
         binding.invalidateAll()
     }
     override fun bindViewModel() {
-        viewModel.searchList.observe(this, Observer<PagedList<Document>> {
+        viewModel.searchList.observe(this, {
             adapter.submitList(it)
         })
 

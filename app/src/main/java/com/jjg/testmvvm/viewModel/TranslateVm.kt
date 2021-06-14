@@ -66,7 +66,7 @@ class TranslateVm : BaseVm() {
     }
 
     fun clickTranslate(str: String) {
-        var url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
+        val url = NetworkConstants.BASE_URL + NetworkConstants.URL_SEARCH
         statusNetwork.value = NetworkStatus( url, STATUS.NONE)
         setStrTranslate(str)
         if (isEmpty()) {

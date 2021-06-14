@@ -1,6 +1,5 @@
 package com.jjg.testmvvm
 
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -41,13 +40,13 @@ class MenuInstrumentedTest {
 
     @Test
     fun clickTranslate() {
-        Espresso.onView(withId(R.id.btn_translate)).perform(click())
+        onView(withId(R.id.btn_translate)).perform(click())
 //        Espresso.onView(withId(R.id.btn_translate)).perform(longClick())
     }
 
     @Test
     fun isContainTranslate() {
-        Espresso.onView(withId(R.id.btn_translate))
+        onView(withId(R.id.btn_translate))
             .check(matches(withText("Translate")))
     }
 
@@ -64,7 +63,7 @@ class MenuInstrumentedTest {
      */
     @Test
     fun isOnDrawDisplay() {
-        Espresso.onView(withId(R.id.btn_comming_soon))
+        onView(withId(R.id.btn_comming_soon))
             .check(matches(isDisplayed()))
     }
 

@@ -28,7 +28,7 @@ import java.util.concurrent.Executors
 /**
  * Network 관련 Repository
  */
-class NetworkRepository() {
+class NetworkRepository {
     private val executor: Executor = Executors.newSingleThreadExecutor()
 
     fun search(query: String, statusNetwork: MutableLiveData<NetworkStatus>): SearchResultVo {

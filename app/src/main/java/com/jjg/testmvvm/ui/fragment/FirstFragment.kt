@@ -20,7 +20,7 @@ class FirstFragment: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        view!!.findViewById<Button>(R.id.btn_first_home).setOnClickListener {
+        requireView().findViewById<Button>(R.id.btn_first_home).setOnClickListener {
             val direction =FirstFragmentDirections.actionFirstFragmentToSecondFragment()
             findNavController().navigate(direction)
         }

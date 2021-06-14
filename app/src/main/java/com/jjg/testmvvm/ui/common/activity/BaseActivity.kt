@@ -8,24 +8,27 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.jjg.testmvvm.ui.dialog.LoadingDialog
 import com.jjg.testmvvm.ui.dialog.NetworkDialog
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 /**
  * Mvvm패턴을 따르지 않는다면,
  * BaseActivity를 상속
  */
+@AndroidEntryPoint
 open class BaseActivity : AppCompatActivity() {
 
-    private lateinit var loadingDialog: LoadingDialog
-    private lateinit var networkDialog: NetworkDialog
+    @Inject lateinit var loadingDialog: LoadingDialog
+    @Inject lateinit var networkDialog: NetworkDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
     }
 
     private fun init() {
-        loadingDialog = LoadingDialog(this)
-        networkDialog = NetworkDialog(this)
+  //      loadingDialog = LoadingDialog(this)
+    //    networkDialog = NetworkDialog(this)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -37,8 +40,8 @@ open class BaseActivity : AppCompatActivity() {
     private fun hideKeyboard() {
         val imm: InputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        var view: View? = currentFocus ?: return
-        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        val view: View = currentFocus ?: return
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     fun showLoadingDialog() {

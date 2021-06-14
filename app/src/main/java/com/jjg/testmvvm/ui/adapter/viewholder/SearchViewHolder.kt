@@ -21,7 +21,7 @@ class SearchViewHolder(private var binding: ItemSearchBinding) :
     }
 
     private fun moveUrl(v: View, url: String) {
-        var intent = Intent(ACTION_VIEW, Uri.parse(url))
+        val intent = Intent(ACTION_VIEW, Uri.parse(url))
         v.context.startActivity(intent)
     }
 }

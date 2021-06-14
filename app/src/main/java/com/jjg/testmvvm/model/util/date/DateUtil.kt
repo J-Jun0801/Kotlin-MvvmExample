@@ -43,8 +43,7 @@ class DateUtil {
         fun iso8601ToDate(strDate: String): Date {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
             dateFormat.timeZone = TimeZone.getTimeZone("UTC")
-            val date: Date = dateFormat.parse(strDate)
-            return date
+            return dateFormat.parse(strDate)
         }
 
         /**
@@ -66,7 +65,7 @@ class DateUtil {
          * ex) 17:30 ~ 22:00 사이에 있는지
          * @return boolean 값으로 반환
          */
-        fun getCompareTime(): Boolean? {
+        fun getCompareTime(): Boolean {
             val calStart: Calendar = getTime()
             val calEnd: Calendar = getTime()
             val calValue: Calendar = Calendar.getInstance()

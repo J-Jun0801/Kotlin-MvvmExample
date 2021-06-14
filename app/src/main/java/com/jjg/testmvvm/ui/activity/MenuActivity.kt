@@ -1,7 +1,6 @@
 package com.jjg.testmvvm.ui.activity
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.jjg.testmvvm.R
 import com.jjg.testmvvm.databinding.ActivityMenuBinding
@@ -14,9 +13,6 @@ import com.jjg.testmvvm.viewModel.MenuVm.Companion.EVENT_ID_TRANSLATE
 class MenuActivity : BaseMvvmActivity<ActivityMenuBinding, MenuVm>(
     R.layout.activity_menu, MenuVm::class.java
 ) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun bindViewModel() {
         val eventIdObserver = Observer<Int> { eventId ->

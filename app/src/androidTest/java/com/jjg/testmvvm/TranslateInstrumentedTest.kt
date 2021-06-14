@@ -29,11 +29,13 @@ class TranslateInstrumentedTest {
         ActivityTestRule(TranslateActivity::class.java)
 
     @Test
-    fun translate(){
+    fun translate() {
         onView(withId(R.id.et_translate))
             .perform(replaceText("즐거운 금요일 :)"))
 
         onView(withId(R.id.btn_confirm))
             .perform(click())
     }
+
+
 }

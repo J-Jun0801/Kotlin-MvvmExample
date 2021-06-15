@@ -4,17 +4,12 @@
     android:layout_height="match_parent"
     android:background="#4D000000">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="240dp"
+        android:layout_height="240dp"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/str_network_dialog_img"
+        android:src="@drawable/ic_launcher_foreground" />
 
-        <ImageView
-            android:id="@+id/loading"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_launcher_foreground" />
-    </LinearLayout>
 </RelativeLayout>

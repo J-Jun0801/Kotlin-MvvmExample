@@ -1,7 +1,6 @@
 package com.jjg.testmvvm.ui.common.activity
 
 import android.app.Activity
-import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -21,21 +20,13 @@ open class BaseActivity : AppCompatActivity() {
 
     @Inject lateinit var loadingDialog: LoadingDialog
     @Inject lateinit var networkDialog: NetworkDialog
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        init()
-    }
-
-    private fun init() {
-  //      loadingDialog = LoadingDialog(this)
-    //    networkDialog = NetworkDialog(this)
-    }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (ev!!.action == MotionEvent.ACTION_UP)
             hideKeyboard()
         return super.dispatchTouchEvent(ev)
     }
+
 
     private fun hideKeyboard() {
         val imm: InputMethodManager =
@@ -50,7 +41,6 @@ open class BaseActivity : AppCompatActivity() {
             loadingDialog.show()
         }
     }
-
 
     fun closeLoadingDialog() {
         if (loadingDialog.isShowing) {

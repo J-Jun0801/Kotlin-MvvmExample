@@ -29,10 +29,13 @@
                 android:id="@+id/et_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
                 android:layout_weight="1"
-                android:paddingHorizontal="20dp"
                 android:background="@drawable/shape_rect_r_20dp_st_1dp"
+                android:gravity="center_vertical"
+                android:hint="@string/str_hint_search"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingHorizontal="20dp"
                 android:text="@{viewModel.strSearch}" />
 
             <Button
@@ -66,10 +69,10 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_search"
-                    android:overScrollMode="never"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:overScrollMode="never" />
             </LinearLayout>
 
             <TextView

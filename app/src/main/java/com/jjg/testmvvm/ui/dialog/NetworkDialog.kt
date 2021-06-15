@@ -22,6 +22,6 @@ class NetworkDialog @Inject constructor(@ActivityContext context: Context) :
     }
 
     fun setNetworkDialog(title: String, content: String) {
-        tv_content.text = "$title\n$content"
+        tv_content.text =String.format(context.resources.getString(R.string.str_network_content) ,title,content)
     }
 }

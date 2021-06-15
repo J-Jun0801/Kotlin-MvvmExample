@@ -41,7 +41,7 @@ class DateUtil {
          * @return Date
          */
         fun iso8601ToDate(strDate: String): Date {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX",Locale.getDefault())
             dateFormat.timeZone = TimeZone.getTimeZone("UTC")
             return dateFormat.parse(strDate)
         }
@@ -55,7 +55,7 @@ class DateUtil {
          * @return 20201년 05월 04일  오전 00시 00분 00초
          */
         fun dateToDateFormat(date: Date, dateFormat: String): String {
-            val resultFormat = SimpleDateFormat(dateFormat)
+            val resultFormat = SimpleDateFormat(dateFormat,Locale.getDefault())
             return resultFormat.format(date)
         }
 

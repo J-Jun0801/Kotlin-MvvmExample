@@ -22,7 +22,7 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseVm>(
     @LayoutRes private val layoutResId: Int,
     private val viewModelName: Class<VM>
 ) : BaseActivity() {
-    private var TAG = javaClass.name
+    private var tagName = javaClass.name
 
     protected lateinit var binding: V
     protected lateinit var viewModel: VM

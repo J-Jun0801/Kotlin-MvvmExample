@@ -18,8 +18,8 @@ class FirstFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         requireView().findViewById<Button>(R.id.btn_first_home).setOnClickListener {
             val direction =FirstFragmentDirections.actionFirstFragmentToSecondFragment()
             findNavController().navigate(direction)

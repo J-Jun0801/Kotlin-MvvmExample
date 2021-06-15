@@ -48,5 +48,5 @@ class NetworkRepository {
         return SearchResultVo(data)
 
     }
-
 }
+
